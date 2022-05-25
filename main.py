@@ -1,6 +1,6 @@
 """MAIN"""
 import logging
-from fastapi import FastAPI, Response, HTTPException
+from fastapi import FastAPI, HTTPException
 import uvicorn
 
 # logger
