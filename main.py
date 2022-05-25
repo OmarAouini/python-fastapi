@@ -1,6 +1,6 @@
 """MAIN"""
 import logging
-from fastapi import FastAPI, Response, logger
+from fastapi import FastAPI, Response
 import uvicorn
 
 # logger
@@ -15,12 +15,6 @@ DB_NAME = "employees"
 async def health():
     """healthcheck endpoint"""
     return Response(status_code=200)
-
-@app.get("/items/{item_id}")
-async def read_item(item_id: int):
-    """test endpoint"""
-    logger.warning("warningz")
-    return {"item_id": item_id}
 
 # run
 if __name__ == "__main__":
