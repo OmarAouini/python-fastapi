@@ -4,13 +4,13 @@ from fastapi import Depends, FastAPI, HTTPException
 import uvicorn
 
 from auth_keycloak import User, get_current_active_user
+from database import DB_NAME
 
 # logger
 logger = logging.getLogger("uvicorn")
 
 app = FastAPI()
 ENV = "dev" #TODO: set dotenv file
-DB_NAME = "employees"
 
 # health check endpoint
 @app.get("/", status_code=200, tags=["health"])
