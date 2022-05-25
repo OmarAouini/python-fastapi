@@ -10,7 +10,7 @@ import requests
 
 
 # Why doing this?
-# Because we want to fetch public key on start
+# Because we want to fetch public key on start (on import in main module this will run)
 # Later we would verify incoming JWT tokens
 try:
     r = requests.get("http://localhost:8080/auth/realms/master",
