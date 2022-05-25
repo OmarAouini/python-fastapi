@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from jose import JWTError, jwt
 from jose.constants import ALGORITHMS
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 import requests
 
@@ -43,6 +43,22 @@ class TokenData(BaseModel):
 class User(BaseModel):
     username: str
     email: str
+
+
+async def login_jwt(form_data: OAuth2PasswordRequestForm = Depends(), realm: str = "master"):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        r = requests.post(f"{KEYCLOAK_URL}/auth/realms/{realm}/protocol/openid-connect/token", timeout=3)
+        r.raise_for_status()
+        response_json = r.json()
+        return response_json
+    except requests.HTTPError as e:
+        print(e)
+        raise credentials_exception
 
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
