@@ -8,12 +8,13 @@ from fastapi.security import OAuth2PasswordBearer
 from pydantic import BaseModel
 import requests
 
+KEYCLOAK_URL = "http://localhost:8080"
 
 # Why doing this?
 # Because we want to fetch public key on start (on import in main module this will run)
 # Later we would verify incoming JWT tokens
 try:
-    r = requests.get("http://localhost:8080/auth/realms/master",
+    r = requests.get(f"{KEYCLOAK_URL}/auth/realms/master",
                      timeout=3)
     r.raise_for_status()
     response_json = r.json()
