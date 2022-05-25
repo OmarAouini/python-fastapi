@@ -11,10 +11,10 @@ ENV = "dev" #TODO: set dotenv file
 DB_NAME = "employees"
 
 # health check endpoint
-@app.get("/", status_code=200)
+@app.get("/", status_code=200, tags=["health"])
 async def health():
     """healthcheck endpoint"""
-    return Response(status_code=200)
+    return {"result":"OK"}
 
 # run
 if __name__ == "__main__":
